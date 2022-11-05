@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace YHTMod.Items;
@@ -42,8 +40,7 @@ public class KatanaRedo : GlobalItem {
             if (inRange && lineOfSight) {
                 Vector2 tpPos = npc.position;
                 tpPos.X += -(npc.direction * npc.width + (player.width*2));
-
-                ChatHelper.DisplayMessage(NetworkText.FromLiteral(npc.TypeName+" "+tpPos), Color.Aqua, 0 );
+                
                 if (Collision.TileCollision(tpPos, Vector2.Zero, player.width, player.height) != Vector2.Zero) return true;
                 
                 player.Teleport(tpPos, TeleportationStyleID.RodOfDiscord);
