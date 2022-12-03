@@ -10,11 +10,12 @@ namespace YHTMod.Projectiles.Weapons;
 public class ToclafaneMinion : ModProjectile {
 
     private int shootCooldown = 0;
+    private AttackMode attackMode = AttackMode.RANGED;
     
     public override void SetStaticDefaults() {
         DisplayName.SetDefault("Toclafane Minion");
         // Sets the amount of frames this minion has on its spritesheet
-        Main.projFrames[Projectile.type] = 1;
+        Main.projFrames[Projectile.type] = 8;
         // This is necessary for right-click targeting
         ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -25,6 +26,7 @@ public class ToclafaneMinion : ModProjectile {
     public sealed override void SetDefaults() {
         Projectile.width = 32;
         Projectile.height = 32;
+        Projectile.scale = 0.65f;
 
         Projectile.tileCollide = false;
 
@@ -63,6 +65,8 @@ public class ToclafaneMinion : ModProjectile {
             shootCooldown = shootCooldown - 1;
         }
 
+        attackMode = AttackMode.RANGED;
+
         Vector2 idlePosition = player.Center;
         idlePosition.Y -= 48f;
 
@@ -92,7 +96,6 @@ public class ToclafaneMinion : ModProjectile {
                 Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width) {
                 if (Projectile.position.X < other.position.X) Projectile.velocity.X -= overlapVelocity;
                 else Projectile.velocity.X += overlapVelocity;
-
                 if (Projectile.position.Y < other.position.Y) Projectile.velocity.Y -= overlapVelocity;
                 else Projectile.velocity.Y += overlapVelocity;
             }
@@ -159,11 +162,15 @@ public class ToclafaneMinion : ModProjectile {
                 Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
             }
 
-            if (distanceFromTarget > 80f && shootCooldown == 0) {
+            if (distanceFromTarget <= 120f) {
+                attackMode = AttackMode.MELEE;
+            }
+            if (distanceFromTarget > 120f && shootCooldown == 0) {
                 shootCooldown = 60; // 1 second between shots
-                Projectile laser = Projectile.NewProjectileDirect(player.GetSource_FromThis(), Projectile.position, direction, ProjectileID.DeathLaser, 30, Projectile.knockBack, Projectile.owner);
+                Projectile laser = Projectile.NewProjectileDirect(player.GetSource_FromThis(), Projectile.Center, direction, ProjectileID.DeathLaser, 30, Projectile.knockBack, Projectile.owner);
                 laser.friendly = true;
                 laser.penetrate = 5;
+                attackMode = AttackMode.RANGED;
             }
         }
         else {
@@ -186,8 +193,7 @@ public class ToclafaneMinion : ModProjectile {
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;
                 Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-            }
-            else if (Projectile.velocity == Vector2.Zero) {
+            } else if (Projectile.velocity == Vector2.Zero) {
                 // If there is a case where it's not moving at all, give it a little "poke"
                 Projectile.velocity.X = -0.15f;
                 Projectile.velocity.Y = -0.05f;
@@ -200,21 +206,74 @@ public class ToclafaneMinion : ModProjectile {
 
         // So it will lean slightly towards the direction it's moving
         Projectile.rotation = Projectile.velocity.X * 0.05f;
-
-        // This is a simple "loop through all frames from top to bottom" animation
-        int frameSpeed = 5;
+        
+        int frameSpeed = 8;
         Projectile.frameCounter++;
         if (Projectile.frameCounter >= frameSpeed) {
             Projectile.frameCounter = 0;
-            Projectile.frame++;
-            if (Projectile.frame >= Main.projFrames[Projectile.type]) {
-                Projectile.frame = 0;
+            if (attackMode == AttackMode.MELEE) {
+                switch (Projectile.frame) {
+                    case 0:
+                        Projectile.frame++;
+                        break;
+                    case 1:
+                        Projectile.frame++;
+                        break;
+                    case 2:
+                        Projectile.frame++;
+                        break;
+                    case 3:
+                        Projectile.frame = 0;
+                        break;
+                    case 4:
+                        Projectile.frame = 1;
+                        break;
+                    case 5:
+                        Projectile.frame = 2;
+                        break;
+                    case 6:
+                        Projectile.frame = 3;
+                        break;
+                    case 7:
+                        Projectile.frame = 4;
+                        break;
+                }
+            }
+            if (attackMode == AttackMode.RANGED) {
+                switch (Projectile.frame) {
+                    case 0:
+                        Projectile.frame = 5;
+                        break;
+                    case 1:
+                        Projectile.frame = 6;
+                        break;
+                    case 2:
+                        Projectile.frame = 7;
+                        break;
+                    case 3:
+                        Projectile.frame = 4;
+                        break;
+                    case 4:
+                        Projectile.frame++;
+                        break;
+                    case 5:
+                        Projectile.frame++;
+                        break;
+                    case 6:
+                        Projectile.frame++;
+                        break;
+                    case 7:
+                        Projectile.frame = 4;
+                        break;
+                }
             }
         }
-
-        // Some visuals here
         Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
 
         #endregion
+    }
+
+    enum AttackMode {
+        MELEE, RANGED
     }
 }

@@ -40,5 +40,43 @@ public class ToclafaneStaff : ModItem {
         position = Main.MouseWorld;
         return base.Shoot(player, source, position, velocity, type, damage, knockback);
     }
-    
+
+    public override void AddRecipes() {
+        CreateRecipe()
+            .AddIngredient(ItemID.GuideVoodooDoll, 1)
+            .AddIngredient(ItemID.HallowedBar, 15)
+            .AddIngredient(ItemID.CopperWatch)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        CreateRecipe()
+            .AddIngredient(ItemID.GuideVoodooDoll, 1)
+            .AddIngredient(ItemID.HallowedBar, 15)
+            .AddIngredient(ItemID.TinWatch)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        CreateRecipe()
+            .AddIngredient(ItemID.GuideVoodooDoll, 1)
+            .AddIngredient(ItemID.HallowedBar, 15)
+            .AddIngredient(ItemID.SilverWatch)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        CreateRecipe()
+            .AddIngredient(ItemID.GuideVoodooDoll, 1)
+            .AddIngredient(ItemID.HallowedBar, 15)
+            .AddIngredient(ItemID.TungstenWatch)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        CreateRecipe()
+            .AddIngredient(ItemID.GuideVoodooDoll, 1)
+            .AddIngredient(ItemID.HallowedBar, 15)
+            .AddTile(TileID.MythrilAnvil)
+            .AddIngredient(ItemID.GoldWatch)
+            .Register();
+        CreateRecipe()
+            .AddIngredient(ItemID.GuideVoodooDoll, 1)
+            .AddIngredient(ItemID.HallowedBar, 15)
+            .AddIngredient(ItemID.PlatinumWatch)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+    }
 }
