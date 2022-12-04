@@ -1,1 +1,6 @@
 Bunch of random additions ranging from QoL to random references
+
+Source: https://github.com/YouHaveTrouble/YHTMod
+
+Code: YouHaveTrouble
+Sprites: YouHaveTrouble, Patrxon
