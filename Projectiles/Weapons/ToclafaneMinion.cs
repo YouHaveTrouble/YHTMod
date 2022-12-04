@@ -11,7 +11,7 @@ public class ToclafaneMinion : ModProjectile {
 
     private int shootCooldown = 0;
     private AttackMode attackMode = AttackMode.RANGED;
-    
+
     public override void SetStaticDefaults() {
         DisplayName.SetDefault("Toclafane Minion");
         // Sets the amount of frames this minion has on its spritesheet
@@ -165,9 +165,11 @@ public class ToclafaneMinion : ModProjectile {
             if (distanceFromTarget <= 120f) {
                 attackMode = AttackMode.MELEE;
             }
+
             if (distanceFromTarget > 120f && shootCooldown == 0) {
                 shootCooldown = 60; // 1 second between shots
-                Projectile laser = Projectile.NewProjectileDirect(player.GetSource_FromThis(), Projectile.Center, direction, ProjectileID.DeathLaser, 30, Projectile.knockBack, Projectile.owner);
+                Projectile laser = Projectile.NewProjectileDirect(player.GetSource_FromThis(), Projectile.Center,
+                    direction, ProjectileID.DeathLaser, 30, Projectile.knockBack, Projectile.owner);
                 laser.friendly = true;
                 laser.penetrate = 5;
                 attackMode = AttackMode.RANGED;
@@ -193,7 +195,8 @@ public class ToclafaneMinion : ModProjectile {
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;
                 Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-            } else if (Projectile.velocity == Vector2.Zero) {
+            }
+            else if (Projectile.velocity == Vector2.Zero) {
                 // If there is a case where it's not moving at all, give it a little "poke"
                 Projectile.velocity.X = -0.15f;
                 Projectile.velocity.Y = -0.05f;
@@ -206,7 +209,7 @@ public class ToclafaneMinion : ModProjectile {
 
         // So it will lean slightly towards the direction it's moving
         Projectile.rotation = Projectile.velocity.X * 0.05f;
-        
+
         int frameSpeed = 8;
         Projectile.frameCounter++;
         if (Projectile.frameCounter >= frameSpeed) {
@@ -239,6 +242,7 @@ public class ToclafaneMinion : ModProjectile {
                         break;
                 }
             }
+
             if (attackMode == AttackMode.RANGED) {
                 switch (Projectile.frame) {
                     case 0:
@@ -268,12 +272,14 @@ public class ToclafaneMinion : ModProjectile {
                 }
             }
         }
+
         Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
 
         #endregion
     }
 
     enum AttackMode {
-        MELEE, RANGED
+        MELEE,
+        RANGED
     }
 }
