@@ -171,6 +171,7 @@ public class ToclafaneMinion : ModProjectile {
                 Projectile laser = Projectile.NewProjectileDirect(player.GetSource_FromThis(), Projectile.Center,
                     direction, ProjectileID.DeathLaser, 30, Projectile.knockBack, Projectile.owner);
                 laser.friendly = true;
+                laser.hostile = false;
                 laser.penetrate = 5;
                 attackMode = AttackMode.RANGED;
             }
