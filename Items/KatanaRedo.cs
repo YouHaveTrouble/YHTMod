@@ -10,19 +10,16 @@ public class KatanaRedo : GlobalItem {
     
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
     {
-        if (item.type == ItemID.Katana) {
-            tooltips.Insert(5, new TooltipLine(YHTMod.GetInstance(), "flavor" , "Nothing personel kid."));
-            tooltips.Insert(6, new TooltipLine(YHTMod.GetInstance(), "usage" , "Right click to teleport behind them."));
-        }
-        
+        if (item.type != ItemID.Katana) return;
+        tooltips.Insert(5, new TooltipLine(YHTMod.GetInstance(), "flavor" , "Nothing personel kid."));
+        tooltips.Insert(6, new TooltipLine(YHTMod.GetInstance(), "usage" , "Right click to teleport behind them."));
     }
 
     public override bool AltFunctionUse(Item item, Player player) {
-        if (item.type == ItemID.Katana) {
-            return true;
+        if (item.type != ItemID.Katana) {
+            return base.AltFunctionUse(item, player);
         }
-
-        return base.AltFunctionUse(item, player);
+        return true;
     }
 
     public override bool? UseItem(Item item, Player player) {
