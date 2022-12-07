@@ -12,8 +12,13 @@ public class NpcLoot : GlobalNPC
 {
     public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
         int id = npc.type;
+        
         if (NPCID.Sets.CountsAsCritter[id]) {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MithrilPebbleOfPigSmiting>(), 400, 1, 1));
+        }
+
+        if (NPCID.Plantera == id) {
+            npcLoot.Add(ItemDropRule.Common(ItemID.ChlorophyteOre, 1, 60, 80));
         }
     }
 }
