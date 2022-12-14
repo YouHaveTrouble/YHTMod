@@ -4,11 +4,11 @@ namespace YHTMod;
 
 public class YhtPlayer : ModPlayer {
 
-    public bool arcaneMissle = false;
+    public int arcaneMissle = 0;
 
     public override void ResetEffects() {
 
-        this.arcaneMissle = false;
+        this.arcaneMissle = 0;
 
         base.ResetEffects();
     }
