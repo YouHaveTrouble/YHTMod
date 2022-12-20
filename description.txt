@@ -1,5 +1,7 @@
 Bunch of random additions ranging from QoL to random references
 
+All new content and changes are documented on the wiki.
+
 Wiki: https://github.com/YouHaveTrouble/YHTMod/wiki
 Source: https://github.com/YouHaveTrouble/YHTMod
 
