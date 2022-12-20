@@ -4,6 +4,8 @@ Steam workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=289735007
 
 Mod wiki: https://github.com/YouHaveTrouble/YHTMod/wiki
 
+Discussion discord: [![Discord](https://img.shields.io/discord/821565102108573706?style=flat-square&color=%237289da&label=Discord)](https://discord.gg/j8KK5dGBps)
+
 Code: YouHaveTrouble
 
 Sprites: YouHaveTrouble, Patrxon
