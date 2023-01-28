@@ -24,6 +24,11 @@ public class KatanaRedo : GlobalItem {
 
     public override bool? UseItem(Item item, Player player) {
         if (item.type != ItemID.Katana || player.altFunctionUse != 2) return null;
+        YhtPlayer yhtPlayer = player.GetModPlayer<YhtPlayer>();
+
+        if (yhtPlayer.katanaTeleportCooldown > 0) return null;
+        yhtPlayer.katanaTeleportCooldown = 300;
+
         for (int i = 0; i < Main.maxNPCs; i++) {
             NPC npc = Main.npc[i];
             if (!npc.CanBeChasedBy()) continue;
