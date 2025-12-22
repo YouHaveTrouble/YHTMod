@@ -7,7 +7,6 @@ namespace YHTMod.Items;
 
 public class CopperSwordOnAStick : ModItem {
     public override void SetStaticDefaults() {
-        DisplayName.SetDefault("Copper Sword On A Stick");
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
     }
 

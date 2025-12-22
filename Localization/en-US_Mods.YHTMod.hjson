@@ -1,0 +1,56 @@
+Buffs: {
+	ToclafaneMinionBuff: {
+		DisplayName: "Summon Toclafane"
+		Description: "It came from a parallel world to fight for its Master."
+	}
+}
+
+Items: {
+	ArcaneMissile: {
+		DisplayName: Arcane Missile
+		Tooltip: '''
+		Magical projectile crits shoot a homing arcane missile
+		Arcane missiles cannot crit
+		'''
+	}
+
+	CopperSwordOnAStick: {
+		DisplayName: Copper Sword On A Stick
+		Tooltip: ""
+	}
+
+	MithrilPebbleOfPigSmiting: {
+		DisplayName: Mithril Pebble Of Pig Smiting
+		Tooltip: '''
+		For you see long ago this pebble was forged in the fiery pits of Tartarus. By the grand blacksmith of Lucifer himself.
+		In a time before the world began there were pigs that roamed the world of Aincrad. They took what they pleased and did
+		what they wanted. The humans tried to survive but the pigs were too powerful. Then a man stood against the hogs! His
+		name... Well its not a Him its a Her...HER name...was...Akane! Lucifer crafted this mighty weapon for Akane. And she
+		threw it Over and Over, Again and Again. She freed the humans but the pigs wouldn't give up! In a mighty battle Akane
+		fell to the Hogs Hero, Becon! Like Bacon but with a 'E' instead of a 'A'. ANYWAY Becon used his Cleaver to strike down
+        Akane. And the pebble fell. One of the hogs tried to pick it up but that hog died as soon as he touched the stone.
+        Another Hero picked up the pebble. It was Akane's Apprentice. Sophie. The hogs ran from the battlefield as Sophie threw
+        the pebble. Striking many of them down. But there were too many. After returning home Sophie trained hard and set off
+        to find Becon. She killed hog after hog looking for him. One little piggy spilled and told her when he was. She made
+        Becon, Into Bacon. Battle after battle the Hogs Became weaker. With time so did Sophie. She died because she ate too
+        much Pork. And the Pebble was passed too Marjosa. He made a decision. Instead of killing them all. He made them walk
+        on four legs. He would eat them and keep them locked up where they cant escape. Some Hogs rebelled but most of them
+        went with it. Accepting defeat. Then as Marjosa was Hunting wild Hogs. 3 appeared at once. Taking him by surprise.
+        They hit him with there sharp horns. Marjosa hit the with the Mighty Pebble killing them all but he was weak and far
+        from anyone who could offer help. And Thus, Marjosa Guardian of the Pebble fell to his knees and passed from this
+        world. Leaving behind the mighty weapon. For he knew. One day its power would be required once more.
+        But the Legacy of the pebble lives on.
+        '''
+	}
+
+	ToclafaneStaff: {
+		DisplayName: Toclafane Staff
+		Tooltip: "Summons a toclafane to remove population for you"
+	}
+}
+
+Projectiles: {
+	CopperSwordOnAStickProjectile.DisplayName: Copper Sword On A Stick
+	MithrilPebbleOfPigSmitingProjectile.DisplayName: Mithril Pebble Of Pig Smiting
+	ToclafaneMinion.DisplayName: Toclafane Minion
+}

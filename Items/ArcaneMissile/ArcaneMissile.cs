@@ -3,20 +3,17 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace YHTMod.Items.ArcaneMissle; 
+namespace YHTMod.Items.ArcaneMissile;
 
-public class ArcaneMissle : ModItem {
-
-    public override void SetStaticDefaults() {
-        DisplayName.SetDefault("Arcane Missle");
-        Tooltip.SetDefault(
-            "Magical projectile crits shoot a homing arcane missle\n" + 
-            "Arcane missles cannot crit"
-            );
+public class ArcaneMissile : ModItem
+{
+    public override void SetStaticDefaults()
+    {
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
     }
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         Item.width = 64;
         Item.height = 64;
         Item.accessory = true;
@@ -27,10 +24,10 @@ public class ArcaneMissle : ModItem {
         Item.noUseGraphic = true;
     }
 
-    public override void UpdateAccessory(Player player, bool hideVisual) {
-
+    public override void UpdateAccessory(Player player, bool hideVisual)
+    {
         player.GetModPlayer<YhtPlayer>().arcaneMissle = Item.damage;
-        
+
         base.UpdateAccessory(player, hideVisual);
     }
 }

@@ -12,8 +12,6 @@ namespace YHTMod.Items;
 public class ToclafaneStaff : ModItem {
     
     public override void SetStaticDefaults() {
-        DisplayName.SetDefault("Toclafane Staff");
-        Tooltip.SetDefault("Summons a toclafane to remove population for you");
         ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
         ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

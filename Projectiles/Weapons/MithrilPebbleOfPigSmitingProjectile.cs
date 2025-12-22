@@ -24,7 +24,7 @@ class MithrilPebbleOfPigSmitingProjectile : ModProjectile {
         base.AI();
         DrawOriginOffsetX = 0;
         DrawOffsetX = 0;
-        int dust = Dust.NewDust(Projectile.Center, 1, 1, DustID.Mythril, 0f, 0f, 0, default(Color), 1f);
+        var dust = Dust.NewDust(Projectile.Center, 1, 1, DustID.Mythril, 0f, 0f, 0, default(Color), 1f);
         Main.dust[dust].noGravity = true;
         Main.dust[dust].velocity *= 0.3f;
     }
