@@ -5,12 +5,15 @@ using YHTMod.Projectiles.Weapons;
 
 namespace YHTMod.Items;
 
-public class CopperSwordOnAStick : ModItem {
-    public override void SetStaticDefaults() {
+public class CopperSwordOnAStick : ModItem
+{
+    public override void SetStaticDefaults()
+    {
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
     }
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         Item.DamageType = DamageClass.Melee;
         Item.damage = 3;
         Item.width = 80;
@@ -31,7 +34,8 @@ public class CopperSwordOnAStick : ModItem {
         Item.shoot = ModContent.ProjectileType<CopperSwordOnAStickProjectile>();
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         CreateRecipe()
             .AddIngredient(ItemID.Wood, 5)
             .AddIngredient(ItemID.Rope, 5)

@@ -26,7 +26,7 @@ public class ArcaneMissile : ModItem
 
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
-        player.GetModPlayer<YhtPlayer>().arcaneMissle = Item.damage;
+        player.GetModPlayer<YhtPlayer>().ArcaneMissle = Item.damage;
 
         base.UpdateAccessory(player, hideVisual);
     }

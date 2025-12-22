@@ -25,8 +25,8 @@ public class KatanaRedo : GlobalItem
         if (item.type != ItemID.Katana || player.altFunctionUse != 2) return null;
         var yhtPlayer = player.GetModPlayer<YhtPlayer>();
 
-        if (yhtPlayer.katanaTeleportCooldown > 0) return null;
-        yhtPlayer.katanaTeleportCooldown = 300;
+        if (yhtPlayer.KatanaTeleportCooldown > 0) return null;
+        yhtPlayer.KatanaTeleportCooldown = 300;
 
         for (var i = 0; i < Main.maxNPCs; i++)
         {

@@ -2,13 +2,13 @@ using Terraria.ModLoader;
 
 namespace YHTMod {
 	public class YHTMod : Mod {
-		private static YHTMod mod;
+		private static YHTMod _mod;
 		public YHTMod() {
-			mod = this;
+			_mod = this;
 		}
 
 		public static YHTMod GetInstance() {
-			return mod;
+			return _mod;
 		}
 	}
 }
