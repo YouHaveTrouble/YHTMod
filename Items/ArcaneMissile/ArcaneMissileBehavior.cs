@@ -21,7 +21,7 @@ public class ArcaneMissileBehavior : GlobalNPC
 
         var player = Main.LocalPlayer;
 
-        if (player.GetModPlayer<YhtPlayer>().ArcaneMissle != 0 && projectile.DamageType == DamageClass.Magic)
+        if (player.GetModPlayer<YhtPlayer>().ArcaneMissile != 0 && projectile.DamageType == DamageClass.Magic)
         {
             // player just crit with magic weapon while having arcane missile accessory
             var proj = Projectile.NewProjectileDirect(
@@ -29,7 +29,7 @@ public class ArcaneMissileBehavior : GlobalNPC
                 Main.LocalPlayer.position,
                 npc.position.DirectionFrom(Main.LocalPlayer.position),
                 ProjectileID.MagicMissile,
-                player.GetModPlayer<YhtPlayer>().ArcaneMissle,
+                player.GetModPlayer<YhtPlayer>().ArcaneMissile,
                 0,
                 Main.LocalPlayer.whoAmI
             );

@@ -5,7 +5,7 @@ namespace YHTMod;
 
 public class YhtPlayer : ModPlayer
 {
-    public int ArcaneMissle = 0;
+    public int ArcaneMissile = 0;
     public int KatanaTeleportCooldown = 0;
 
     public override void PreUpdate()
@@ -15,7 +15,7 @@ public class YhtPlayer : ModPlayer
 
     public override void ResetEffects()
     {
-        ArcaneMissle = 0;
+        ArcaneMissile = 0;
 
         base.ResetEffects();
     }
