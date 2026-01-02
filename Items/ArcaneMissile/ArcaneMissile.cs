@@ -14,8 +14,8 @@ public class ArcaneMissile : ModItem
 
     public override void SetDefaults()
     {
-        Item.width = 64;
-        Item.height = 64;
+        Item.width = 32;
+        Item.height = 32;
         Item.accessory = true;
         Item.damage = 10;
         Item.rare = ItemRarityID.LightRed;
