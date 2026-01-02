@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using YHTMod.Buffs;
 using YHTMod.Projectiles.Weapons;
@@ -48,41 +49,40 @@ public class ToclafaneStaff : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe()
-            .AddIngredient(ItemID.GuideVoodooDoll, 1)
-            .AddIngredient(ItemID.HallowedBar, 15)
-            .AddIngredient(ItemID.CopperWatch)
-            .AddTile(TileID.MythrilAnvil)
-            .Register();
-        CreateRecipe()
-            .AddIngredient(ItemID.GuideVoodooDoll, 1)
-            .AddIngredient(ItemID.HallowedBar, 15)
-            .AddIngredient(ItemID.TinWatch)
-            .AddTile(TileID.MythrilAnvil)
-            .Register();
-        CreateRecipe()
-            .AddIngredient(ItemID.GuideVoodooDoll, 1)
-            .AddIngredient(ItemID.HallowedBar, 15)
-            .AddIngredient(ItemID.SilverWatch)
-            .AddTile(TileID.MythrilAnvil)
-            .Register();
-        CreateRecipe()
-            .AddIngredient(ItemID.GuideVoodooDoll, 1)
-            .AddIngredient(ItemID.HallowedBar, 15)
-            .AddIngredient(ItemID.TungstenWatch)
-            .AddTile(TileID.MythrilAnvil)
-            .Register();
-        CreateRecipe()
-            .AddIngredient(ItemID.GuideVoodooDoll, 1)
-            .AddIngredient(ItemID.HallowedBar, 15)
-            .AddTile(TileID.MythrilAnvil)
-            .AddIngredient(ItemID.GoldWatch)
-            .Register();
-        CreateRecipe()
-            .AddIngredient(ItemID.GuideVoodooDoll, 1)
-            .AddIngredient(ItemID.HallowedBar, 15)
-            .AddIngredient(ItemID.PlatinumWatch)
-            .AddTile(TileID.MythrilAnvil)
-            .Register();
+        var watchGroup = new RecipeGroup(() => Language.GetTextValue("Mods.YHTMod.Recipes.AnyWatch"),
+            ItemID.GoldWatch,
+            ItemID.SilverWatch,
+            ItemID.TinWatch,
+            ItemID.CopperWatch,
+            ItemID.PlatinumWatch,
+            ItemID.TungstenWatch
+        );
+        RecipeGroup.RegisterGroup("YHTMod:Watches", watchGroup);
+
+        var tier2BarGroup = new RecipeGroup(() => Language.GetTextValue("Mods.YHTMod.Recipes.Tier2Bars"),
+            ItemID.MythrilBar,
+            ItemID.OrichalcumBar
+        );
+        RecipeGroup.RegisterGroup("YHTMod:Tier2Bars", tier2BarGroup);
+
+        var recipe = CreateRecipe();
+
+        recipe.AddRecipeGroup(watchGroup);
+        recipe.AddIngredient(ItemID.GuideVoodooDoll);
+        recipe.AddTile(TileID.MythrilAnvil);
+
+        // Calamity delays when you obtain hallowed bars, so use alternate recipe if Calamity is installed
+        if (ModLoader.HasMod("CalamityMod"))
+        {
+            recipe.AddRecipeGroup(tier2BarGroup, 35);
+            recipe.AddIngredient(ItemID.SoulofLight, 10);
+            recipe.AddIngredient(ItemID.SoulofLight, 10);
+        }
+        else
+        {
+            recipe.AddIngredient(ItemID.HallowedBar, 15);
+        }
+
+        recipe.Register();
     }
 }

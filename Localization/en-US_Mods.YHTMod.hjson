@@ -1,3 +1,8 @@
+Recipes: {
+	AnyWatch: Any Watch
+	Tier2Bars: Tier 2 Hardmode Bars
+}
+
 Buffs: {
 	ToclafaneMinionBuff: {
 		DisplayName: Summon Toclafane
