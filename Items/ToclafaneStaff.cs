@@ -76,7 +76,7 @@ public class ToclafaneStaff : ModItem
         {
             recipe.AddRecipeGroup(tier2BarGroup, 35);
             recipe.AddIngredient(ItemID.SoulofLight, 10);
-            recipe.AddIngredient(ItemID.SoulofLight, 10);
+            recipe.AddIngredient(ItemID.SoulofNight, 10);
         }
         else
         {
