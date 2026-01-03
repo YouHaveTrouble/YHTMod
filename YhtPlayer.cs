@@ -10,59 +10,81 @@ public class YhtPlayer : ModPlayer
 {
     public int ArcaneMissile = 0;
     public int KatanaTeleportCooldown = 0;
+    public int SummonerAmbitionDeerclopsCooldown = 0;
 
-    public bool HasAmbition = false;
+
     public bool SummonerAmbition = false;
-    
-    public HashSet<string> KilledBosses = [];
-    
-    public HashSet<string> SummonerAmbitionCrafts = [];
+
+    /**
+     * Set of boss and event ids for unlocking perks from Summoner's Ambition accessory
+     */
+    public HashSet<string> SummonerAmbitions = [];
 
     public override void PreUpdate()
     {
         KatanaTeleportCooldown = Math.Max(KatanaTeleportCooldown - 1, 0);
+        SummonerAmbitionDeerclopsCooldown = Math.Max(SummonerAmbitionDeerclopsCooldown - 1, 0);
     }
 
-    public override void PostUpdateMiscEffects()
+    public override void PostUpdateEquips()
     {
         if (SummonerAmbition)
         {
             Player.AddBuff(ModContent.BuffType<SummonerAmbitionBuff>(), 1);
             Player.maxMinions += GetSummonersAmbitionMinionBonus();
+
+            if (SummonerAmbitions.Contains("king_slime"))
+            {
+                Player.whipRangeMultiplier += 0.2f;
+            }
+
+            if (SummonerAmbitions.Contains("eater_of_worlds"))
+            {
+                Player.GetArmorPenetration(DamageClass.Summon) += 5;
+            }
+
+            if (SummonerAmbitions.Contains("brain_of_cthulhu"))
+            {
+                Player.GetDamage(DamageClass.Summon) += 0.05f;
+            }
+
+            if (SummonerAmbitions.Contains("skeletron"))
+            {
+                Player.GetKnockback(DamageClass.Summon) += 0.1f;
+            }
         }
     }
 
     public override void ResetEffects()
     {
         ArcaneMissile = 0;
-        HasAmbition = false;
         SummonerAmbition = false;
 
         base.ResetEffects();
     }
-    
+
     public override void SaveData(TagCompound tag)
     {
-        tag["killedBosses"] = new List<string>(KilledBosses);
-        tag["summonerAmbitions"] = new List<string>(SummonerAmbitionCrafts);
+        tag["summonerAmbitions"] = new List<string>(SummonerAmbitions);
     }
-    
+
     public override void LoadData(TagCompound tag)
     {
-        if (tag.ContainsKey("killedBosses"))
-        {
-            var list = tag.GetList<string>("killedBosses");
-            KilledBosses = new HashSet<string>(list);
-        }
         if (tag.ContainsKey("summonerAmbitions"))
         {
             var list = tag.GetList<string>("summonerAmbitions");
-            SummonerAmbitionCrafts = new HashSet<string>(list);
+            SummonerAmbitions = new HashSet<string>(list);
         }
     }
-    
+
     public int GetSummonersAmbitionMinionBonus()
     {
-        return SummonerAmbitionCrafts.Count / 3 + 1;
+        var amount = 1;
+        if (SummonerAmbitions.Contains("wall_of_flesh"))
+        {
+            amount += 1;
+        }
+
+        return amount;
     }
 }

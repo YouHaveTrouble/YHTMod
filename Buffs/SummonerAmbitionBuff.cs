@@ -16,14 +16,14 @@ public class SummonerAmbitionBuff : ModBuff
     {
         var modPlayer = Main.LocalPlayer.TryGetModPlayer<YhtPlayer>(out var mp) ? mp : null;
         if (modPlayer == null) return;
-        
-        tip = Language.GetTextValue("Mods.YHTMod.Buffs.SummonerAmbitionBuff.Description", modPlayer.SummonerAmbitionCrafts.Count);
+
+        tip = Language.GetTextValue("Mods.YHTMod.Buffs.SummonerAmbitionBuff.Description", modPlayer.SummonerAmbitions.Count);
     }
 
     public override void Update(Player player, ref int buffIndex)
     {
         var modPlayer = player.GetModPlayer<YhtPlayer>();
-        
+
         if (modPlayer.SummonerAmbition)
         {
             player.buffTime[buffIndex] = 18000;

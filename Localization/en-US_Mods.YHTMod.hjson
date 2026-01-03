@@ -1,16 +1,6 @@
 Recipes: {
 	AnyWatch: Any Watch
 	Tier2Bars: Tier 2 Hardmode Bars
-
-	Ambitions: {
-		KingSlimeDead: King Slime Defeated
-		EyeOfCthulhuDead: Eye of Cthulhu Defeated
-		EaterOfWorldsDead: Eater of Worlds Defeated
-		BrainOfCthulhuDead: Brain of Cthulhu Defeated
-		QueenBeeDead: Queen Bee Defeated
-		SkeletronDead: Skeletron Defeated
-		WallOfFleshDead: Wall of Flesh Defeated
-	}
 }
 
 Buffs: {
@@ -24,7 +14,7 @@ Buffs: {
 		Description:
 			'''
 			Your power grows with your ambition.
-			         
+
 			Essences absorbed: {0}
 			'''
 	}
@@ -80,18 +70,17 @@ Items: {
 		Tooltip:
 			'''
 			Grants Summoner's Ambition.
-			Buff can be empowered by slaying powerful enemies and absorbing their essences.
 			"For those who seek to lead."
 			{$CommonItemTooltip.IncreasesMaxMinionsBy@0}
 			'''
-		KingSlime: "[i:560] +5 summon tag damage."
-		EyeOfCthulhu: "[i:43] Increases minion speed."
-		EaterOfWorlds: "[i:70] Minions penetrate 5 armor."
-		BrainOfCthulhu: "[i:1331] 5% increased minion damage."
-		QueenBee: "[i:1133] Minion hits can inflict poison."
-		Deerclops: "[i:5120] Minion hits can spawn shadow hands."
-		Skeletron: "[i:4801] Increases minion knockback."
-        WallOfFlesh: "[i:267] Increases max number of minions by 1."
+		KingSlime: "[i:560] 20% increased whip size"
+		EyeOfCthulhu: "[i:43] Increases whip damage by 10%"
+		EaterOfWorlds: "[i:70] Summon damage penetrates 5 armor"
+		BrainOfCthulhu: "[i:1331] 5% increased minion damage"
+		QueenBee: "[i:1133] Minion hits can inflict poison"
+		Deerclops: "[i:5120] Minion hits can spawn shadow hands"
+		Skeletron: "[i:4801] Increases minion knockback"
+		WallOfFlesh: "[i:267] Increases max number of minions by 1"
 	}
 }
 

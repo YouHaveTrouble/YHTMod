@@ -31,19 +31,62 @@ public class SummonersAmbition : ModItem
     {
         var modPlayer = player.GetModPlayer<YhtPlayer>();
         modPlayer.SummonerAmbition = true;
-        modPlayer.HasAmbition = true;
     }
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
         var player = Main.LocalPlayer.GetModPlayer<YhtPlayer>();
-        tooltips.Add(new TooltipLine(Mod, "SummonerAmbition", Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.Tooltip", player.GetSummonersAmbitionMinionBonus())));
+        tooltips.Add(new TooltipLine(Mod, "SummonerAmbition",
+            Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.Tooltip",
+                player.GetSummonersAmbitionMinionBonus())));
 
-        if (player.KilledBosses.Contains("king_slime"))
+        if (player.SummonerAmbitions.Contains("king_slime"))
         {
-            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionKingSlime", Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.KingSlime")));
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionKingSlime",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.KingSlime")));
         }
 
+        if (player.SummonerAmbitions.Contains("eye_of_cthulhu"))
+        {
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionEyeOfCthulhu",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.EyeOfCthulhu")));
+        }
+        
+        if (player.SummonerAmbitions.Contains("deerclops"))
+        {
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionDeerclops",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.Deerclops")));
+        }
+
+        if (player.SummonerAmbitions.Contains("eater_of_worlds"))
+        {
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionEaterOfWorlds",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.EaterOfWorlds")));
+        }
+
+        if (player.SummonerAmbitions.Contains("brain_of_cthulhu"))
+        {
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionBrainOfCthulhu",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.BrainOfCthulhu")));
+        }
+        
+        if (player.SummonerAmbitions.Contains("queen_bee"))
+        {
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionQueenBee",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.QueenBee")));
+        }
+
+        if (player.SummonerAmbitions.Contains("skeletron"))
+        {
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionSkeletron",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.Skeletron")));
+        }
+        
+        if (player.SummonerAmbitions.Contains("wall_of_flesh"))
+        {
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionWallOfFlesh",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.WallOfFlesh")));
+        }
     }
 
     public override void AddRecipes()
@@ -55,61 +98,5 @@ public class SummonersAmbition : ModItem
             .AddTile(TileID.WorkBenches)
             .Register();
 
-        #region Upgrades
-
-        CreateRecipe()
-            .AddIngredient(this)
-            .AddTile(TileID.DemonAltar)
-            .AddIngredient(ItemID.Gel, 250)
-            .AddCondition(new Condition(
-                Language.GetText("Mods.YHTMod.Recipes.Ambitions.KingSlimeDead"),
-                () =>
-                {
-                    var player = Main.LocalPlayer.GetModPlayer<YhtPlayer>();
-                    return player.KilledBosses.Contains("king_slime") && !player.SummonerAmbitionCrafts.Contains("king_slime");
-                })
-            )
-            .AddOnCraftCallback((recipe, item, consumed, destination) =>
-            {
-                Main.LocalPlayer.GetModPlayer<YhtPlayer>().SummonerAmbitionCrafts.Add("king_slime");
-            })
-            .Register();
-        
-        CreateRecipe()
-            .AddIngredient(this)
-            .AddTile(TileID.DemonAltar)
-            .AddIngredient(ItemID.Lens, 100)
-            .AddCondition(new Condition(Language.GetText(
-                    "Mods.YHTMod.Recipes.Ambitions.EyeOfCthulhuDead"),
-                () =>
-                {
-                    var player = Main.LocalPlayer.GetModPlayer<YhtPlayer>();
-                    return player.KilledBosses.Contains("eye_of_cthulhu") && !player.SummonerAmbitionCrafts.Contains("eye_of_cthulhu");
-                })
-            )
-            .AddOnCraftCallback((recipe, item, consumed, destination) =>
-            {
-                Main.LocalPlayer.GetModPlayer<YhtPlayer>().SummonerAmbitionCrafts.Add("eye_of_cthulhu");
-            })
-            .Register();
-        
-        CreateRecipe()
-            .AddIngredient(this)
-            .AddTile(TileID.DemonAltar)
-            .AddIngredient(ItemID.Bone, 250)
-            .AddCondition(new Condition(Language.GetText(
-                    "Mods.YHTMod.Recipes.Ambitions.SkeletronDead"),
-                () => {
-                    var player = Main.LocalPlayer.GetModPlayer<YhtPlayer>();
-                    return player.KilledBosses.Contains("skeletron") && !player.SummonerAmbitionCrafts.Contains("skeletron");
-                })
-            )
-            .AddOnCraftCallback((recipe, item, consumed, destination) =>
-            {
-                Main.LocalPlayer.GetModPlayer<YhtPlayer>().SummonerAmbitionCrafts.Add("skeletron");
-            })
-            .Register();
-
-        #endregion
     }
 }
