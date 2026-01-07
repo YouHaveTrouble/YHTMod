@@ -65,7 +65,7 @@ public class ToclafaneMinion : ModProjectile {
 
         _attackMode = AttackMode.Ranged;
 
-        var idlePosition = player.Center;
+        Vector2 idlePosition = player.Center;
         idlePosition.Y -= 48f;
 
         float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -player.direction;
@@ -74,8 +74,8 @@ public class ToclafaneMinion : ModProjectile {
         // All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
 
         // Teleport to player if distance is too big
-        var vectorToIdlePosition = idlePosition - Projectile.Center;
-        var distanceToIdlePosition = vectorToIdlePosition.Length();
+        Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
+        float distanceToIdlePosition = vectorToIdlePosition.Length();
         if (Main.myPlayer == player.whoAmI && distanceToIdlePosition > 2000f) {
             // Whenever you deal with non-regular events that change the behavior or position drastically, make sure to only run the code on the owner of the projectile,
             // and then set netUpdate to true
@@ -86,9 +86,9 @@ public class ToclafaneMinion : ModProjectile {
 
         // If your minion is flying, you want to do this independently of any conditions
         const float overlapVelocity = 0.04f;
-        for (var i = 0; i < Main.maxProjectiles; i++) {
+        for (int i = 0; i < Main.maxProjectiles; i++) {
             // Fix overlap with other minions
-            var other = Main.projectile[i];
+            Projectile other = Main.projectile[i];
             if (i == Projectile.whoAmI || !other.active || other.owner != Projectile.owner ||
                 !(Math.Abs(Projectile.position.X - other.position.X) +
                     Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)) continue;
@@ -103,14 +103,14 @@ public class ToclafaneMinion : ModProjectile {
         #region Find target
 
         // Starting search distance
-        var distanceFromTarget = 700f;
-        var targetCenter = Projectile.position;
-        var foundTarget = false;
+        float distanceFromTarget = 700f;
+        Vector2 targetCenter = Projectile.position;
+        bool foundTarget = false;
 
         // This code is required if your minion weapon has the targeting feature
         if (player.HasMinionAttackTargetNPC) {
-            var npc = Main.npc[player.MinionAttackTargetNPC];
-            var between = Vector2.Distance(npc.Center, Projectile.Center);
+            NPC npc = Main.npc[player.MinionAttackTargetNPC];
+            float between = Vector2.Distance(npc.Center, Projectile.Center);
             // Reasonable distance away so it doesn't target across multiple screens
             if (between < 2000f) {
                 distanceFromTarget = between;
@@ -120,17 +120,17 @@ public class ToclafaneMinion : ModProjectile {
         }
 
         if (!foundTarget) {
-            for (var i = 0; i < Main.maxNPCs; i++) {
-                var npc = Main.npc[i];
+            for (int i = 0; i < Main.maxNPCs; i++) {
+                NPC npc = Main.npc[i];
                 if (!npc.CanBeChasedBy()) continue;
-                var between = Vector2.Distance(npc.Center, Projectile.Center);
-                var closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
-                var inRange = between < distanceFromTarget;
-                var lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width,
+                float between = Vector2.Distance(npc.Center, Projectile.Center);
+                bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
+                bool inRange = between < distanceFromTarget;
+                bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width,
                     Projectile.height, npc.position, npc.width, npc.height);
                 // Additional check for this specific minion behavior, otherwise it will stop attacking once it dashed through an enemy while flying though tiles afterwards
                 // The number depends on various parameters seen in the movement code below. Test different ones out until it works alright
-                var closeThroughWall = between < 100f;
+                bool closeThroughWall = between < 100f;
                 if (((!closest || !inRange) && foundTarget) || (!lineOfSight && !closeThroughWall)) continue;
                 distanceFromTarget = between;
                 targetCenter = npc.Center;
@@ -145,11 +145,11 @@ public class ToclafaneMinion : ModProjectile {
         #region Movement
 
         // Default movement parameters (here for attacking)
-        var speed = 8f;
-        var inertia = 20f;
+        float speed = 8f;
+        float inertia = 20f;
 
         if (foundTarget) {
-            var direction = targetCenter - Projectile.Center;
+            Vector2 direction = targetCenter - Projectile.Center;
             direction.Normalize();
             if (distanceFromTarget > 40f) {
                 // The immediate range around the target (so it doesn't latch onto it when close)
@@ -163,7 +163,7 @@ public class ToclafaneMinion : ModProjectile {
                     break;
                 case > 120f when _shootCooldown == 0: {
                     _shootCooldown = 60; // 1 second between shots
-                    var laser = Projectile.NewProjectileDirect(player.GetSource_FromThis(), Projectile.Center,
+                    Projectile laser = Projectile.NewProjectileDirect(player.GetSource_FromThis(), Projectile.Center,
                         direction, ProjectileID.DeathLaser, 30, Projectile.knockBack, Projectile.owner);
                     laser.friendly = true;
                     laser.hostile = false;
