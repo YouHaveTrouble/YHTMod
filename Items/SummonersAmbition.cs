@@ -93,7 +93,7 @@ public class SummonersAmbition : ModItem
     {
         CreateRecipe()
             .AddIngredient(ItemID.Rope, 5)
-            .AddIngredient(ItemID.Squirrel)
+            .AddRecipeGroup(RecipeGroupID.Squirrels)
             .AddIngredient(ItemID.Acorn, 25)
             .AddTile(TileID.WorkBenches)
             .Register();
