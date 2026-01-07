@@ -4,27 +4,22 @@ using Terraria.ModLoader;
 
 namespace YHTMod.Items.ArcaneMissile;
 
-public class ArcaneMissileBehavior : GlobalNPC
-{
-    public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hitInfo, int damage)
-    {
-        if (!hitInfo.Crit)
-        {
+public class ArcaneMissileBehavior : GlobalNPC {
+    public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hitInfo, int damage) {
+        if (!hitInfo.Crit) {
             base.OnHitByProjectile(npc, projectile, hitInfo, damage);
             return;
         }
 
-        if (Main.netMode == NetmodeID.Server)
-        {
+        if (Main.netMode == NetmodeID.Server) {
             return;
         }
 
-        var player = Main.LocalPlayer;
+        Player player = Main.LocalPlayer;
 
-        if (player.GetModPlayer<YhtPlayer>().ArcaneMissile != 0 && projectile.DamageType == DamageClass.Magic)
-        {
+        if (player.GetModPlayer<YhtPlayer>().ArcaneMissile != 0 && projectile.DamageType == DamageClass.Magic) {
             // player just crit with magic weapon while having arcane missile accessory
-            var proj = Projectile.NewProjectileDirect(
+            Projectile proj = Projectile.NewProjectileDirect(
                 projectile.GetSource_FromThis("arcaneMissile"),
                 Main.LocalPlayer.position,
                 npc.position.DirectionFrom(Main.LocalPlayer.position),

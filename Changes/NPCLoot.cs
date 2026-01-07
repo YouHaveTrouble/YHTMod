@@ -8,19 +8,15 @@ using YHTMod.Items.ArcaneMissile;
 
 namespace YHTMod.Changes;
 
-public class NpcLoot : GlobalNPC
-{
-    public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-    {
-        var id = npc.type;
+public class NpcLoot : GlobalNPC {
+    public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
+        int id = npc.type;
 
-        if (NPCID.Sets.CountsAsCritter[id])
-        {
+        if (NPCID.Sets.CountsAsCritter[id]) {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MithrilPebbleOfPigSmiting>(), 400));
         }
 
-        switch (id)
-        {
+        switch (id) {
             case NPCID.Plantera:
                 npcLoot.Add(ItemDropRule.Common(ItemID.ChlorophyteOre, 1, 60, 80));
                 break;

@@ -6,10 +6,8 @@ using Terraria.ModLoader;
 
 namespace YHTMod.Projectiles.Weapons;
 
-class CopperSwordOnAStickProjectile : ModProjectile
-{
-    public override void SetDefaults()
-    {
+class CopperSwordOnAStickProjectile : ModProjectile {
+    public override void SetDefaults() {
         Projectile.width = 80;
         Projectile.height = 80;
 
@@ -23,8 +21,7 @@ class CopperSwordOnAStickProjectile : ModProjectile
         Projectile.aiStyle = ProjAIStyleID.ShortSword;
     }
 
-    public override void AI()
-    {
+    public override void AI() {
         base.AI();
         float random = (float)(Random.Shared.NextDouble() / 5f);
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 -

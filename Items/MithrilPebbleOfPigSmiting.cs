@@ -5,15 +5,12 @@ using YHTMod.Projectiles.Weapons;
 
 namespace YHTMod.Items;
 
-public class MithrilPebbleOfPigSmiting : ModItem
-{
-    public override void SetStaticDefaults()
-    {
+public class MithrilPebbleOfPigSmiting : ModItem {
+    public override void SetStaticDefaults() {
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
     }
 
-    public override void SetDefaults()
-    {
+    public override void SetDefaults() {
         Item.DamageType = DamageClass.Ranged;
         Item.damage = 16;
         Item.width = 8;

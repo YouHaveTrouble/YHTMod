@@ -7,13 +7,11 @@ using YHTMod.Buffs;
 
 namespace YHTMod.Projectiles.Weapons;
 
-public class ToclafaneMinion : ModProjectile
-{
+public class ToclafaneMinion : ModProjectile {
     private int _shootCooldown = 0;
     private AttackMode _attackMode = AttackMode.Ranged;
 
-    public override void SetStaticDefaults()
-    {
+    public override void SetStaticDefaults() {
         // Sets the amount of frames this minion has on its spritesheet
         Main.projFrames[Projectile.type] = 8;
         // This is necessary for right-click targeting
@@ -23,8 +21,7 @@ public class ToclafaneMinion : ModProjectile
         ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
     }
 
-    public sealed override void SetDefaults()
-    {
+    public sealed override void SetDefaults() {
         Projectile.width = 32;
         Projectile.height = 32;
         Projectile.scale = 0.65f;
@@ -37,29 +34,24 @@ public class ToclafaneMinion : ModProjectile
         Projectile.penetrate = -1;
     }
 
-    public override bool? CanCutTiles()
-    {
+    public override bool? CanCutTiles() {
         return false;
     }
 
-    public override bool MinionContactDamage()
-    {
+    public override bool MinionContactDamage() {
         return true;
     }
 
-    public override void AI()
-    {
-        var player = Main.player[Projectile.owner];
+    public override void AI() {
+        Player player = Main.player[Projectile.owner];
 
         #region Active check
 
-        if (player.dead || !player.active)
-        {
+        if (player.dead || !player.active) {
             player.ClearBuff(ModContent.BuffType<ToclafaneMinionBuff>());
         }
 
-        if (player.HasBuff(ModContent.BuffType<ToclafaneMinionBuff>()))
-        {
+        if (player.HasBuff(ModContent.BuffType<ToclafaneMinionBuff>())) {
             Projectile.timeLeft = 2;
         }
 
@@ -67,8 +59,7 @@ public class ToclafaneMinion : ModProjectile
 
         #region General behavior
 
-        if (_shootCooldown > 0)
-        {
+        if (_shootCooldown > 0) {
             _shootCooldown = _shootCooldown - 1;
         }
 
@@ -85,8 +76,7 @@ public class ToclafaneMinion : ModProjectile
         // Teleport to player if distance is too big
         var vectorToIdlePosition = idlePosition - Projectile.Center;
         var distanceToIdlePosition = vectorToIdlePosition.Length();
-        if (Main.myPlayer == player.whoAmI && distanceToIdlePosition > 2000f)
-        {
+        if (Main.myPlayer == player.whoAmI && distanceToIdlePosition > 2000f) {
             // Whenever you deal with non-regular events that change the behavior or position drastically, make sure to only run the code on the owner of the projectile,
             // and then set netUpdate to true
             Projectile.position = idlePosition;
@@ -96,8 +86,7 @@ public class ToclafaneMinion : ModProjectile
 
         // If your minion is flying, you want to do this independently of any conditions
         const float overlapVelocity = 0.04f;
-        for (var i = 0; i < Main.maxProjectiles; i++)
-        {
+        for (var i = 0; i < Main.maxProjectiles; i++) {
             // Fix overlap with other minions
             var other = Main.projectile[i];
             if (i == Projectile.whoAmI || !other.active || other.owner != Projectile.owner ||
@@ -119,23 +108,19 @@ public class ToclafaneMinion : ModProjectile
         var foundTarget = false;
 
         // This code is required if your minion weapon has the targeting feature
-        if (player.HasMinionAttackTargetNPC)
-        {
+        if (player.HasMinionAttackTargetNPC) {
             var npc = Main.npc[player.MinionAttackTargetNPC];
             var between = Vector2.Distance(npc.Center, Projectile.Center);
             // Reasonable distance away so it doesn't target across multiple screens
-            if (between < 2000f)
-            {
+            if (between < 2000f) {
                 distanceFromTarget = between;
                 targetCenter = npc.Center;
                 foundTarget = true;
             }
         }
 
-        if (!foundTarget)
-        {
-            for (var i = 0; i < Main.maxNPCs; i++)
-            {
+        if (!foundTarget) {
+            for (var i = 0; i < Main.maxNPCs; i++) {
                 var npc = Main.npc[i];
                 if (!npc.CanBeChasedBy()) continue;
                 var between = Vector2.Distance(npc.Center, Projectile.Center);
@@ -163,24 +148,20 @@ public class ToclafaneMinion : ModProjectile
         var speed = 8f;
         var inertia = 20f;
 
-        if (foundTarget)
-        {
+        if (foundTarget) {
             var direction = targetCenter - Projectile.Center;
             direction.Normalize();
-            if (distanceFromTarget > 40f)
-            {
+            if (distanceFromTarget > 40f) {
                 // The immediate range around the target (so it doesn't latch onto it when close)
                 direction *= speed;
                 Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
             }
 
-            switch (distanceFromTarget)
-            {
+            switch (distanceFromTarget) {
                 case <= 120f:
                     _attackMode = AttackMode.Melee;
                     break;
-                case > 120f when _shootCooldown == 0:
-                {
+                case > 120f when _shootCooldown == 0: {
                     _shootCooldown = 60; // 1 second between shots
                     var laser = Projectile.NewProjectileDirect(player.GetSource_FromThis(), Projectile.Center,
                         direction, ProjectileID.DeathLaser, 30, Projectile.knockBack, Projectile.owner);
@@ -192,24 +173,20 @@ public class ToclafaneMinion : ModProjectile
                 }
             }
         }
-        else
-        {
+        else {
             // Minion doesn't have a target: return to player and idle
-            if (distanceToIdlePosition > 600f)
-            {
+            if (distanceToIdlePosition > 600f) {
                 // Speed up the minion if it's away from the player
                 speed = 12f;
                 inertia = 60f;
             }
-            else
-            {
+            else {
                 // Slow down the minion if closer to the player
                 speed = 4f;
                 inertia = 80f;
             }
 
-            if (distanceToIdlePosition > 20f)
-            {
+            if (distanceToIdlePosition > 20f) {
                 // The immediate range around the player (when it passively floats about)
 
                 // This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
@@ -217,8 +194,7 @@ public class ToclafaneMinion : ModProjectile
                 vectorToIdlePosition *= speed;
                 Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
             }
-            else if (Projectile.velocity == Vector2.Zero)
-            {
+            else if (Projectile.velocity == Vector2.Zero) {
                 // If there is a case where it's not moving at all, give it a little "poke"
                 Projectile.velocity.X = -0.15f;
                 Projectile.velocity.Y = -0.05f;
@@ -234,14 +210,11 @@ public class ToclafaneMinion : ModProjectile
 
         const int frameSpeed = 8;
         Projectile.frameCounter++;
-        if (Projectile.frameCounter >= frameSpeed)
-        {
+        if (Projectile.frameCounter >= frameSpeed) {
             Projectile.frameCounter = 0;
-            switch (_attackMode)
-            {
+            switch (_attackMode) {
                 case AttackMode.Melee:
-                    switch (Projectile.frame)
-                    {
+                    switch (Projectile.frame) {
                         case 0:
                         case 1:
                         case 2:
@@ -266,8 +239,7 @@ public class ToclafaneMinion : ModProjectile
 
                     break;
                 case AttackMode.Ranged:
-                    switch (Projectile.frame)
-                    {
+                    switch (Projectile.frame) {
                         case 0:
                             Projectile.frame = 5;
                             break;
@@ -301,8 +273,7 @@ public class ToclafaneMinion : ModProjectile
         #endregion
     }
 
-    private enum AttackMode
-    {
+    private enum AttackMode {
         Melee,
         Ranged,
     }

@@ -7,12 +7,9 @@ using Terraria.ModLoader;
 
 namespace YHTMod.Changes;
 
-public class BossKillListener : GlobalNPC
-{
-    public override void OnKill(NPC npc)
-    {
-        switch (npc.type)
-        {
+public class BossKillListener : GlobalNPC {
+    public override void OnKill(NPC npc) {
+        switch (npc.type) {
             case NPCID.KingSlime:
                 HandleBossKill(npc, "king_slime");
                 break;
@@ -22,9 +19,8 @@ public class BossKillListener : GlobalNPC
             case NPCID.EaterofWorldsHead:
             case NPCID.EaterofWorldsBody:
             case NPCID.EaterofWorldsTail:
-                var foundEaterSegments = 0;
-                foreach (var activeNpC in Main.ActiveNPCs)
-                {
+                int foundEaterSegments = 0;
+                foreach (NPC activeNpC in Main.ActiveNPCs) {
                     if (activeNpC.friendly || activeNpC.townNPC) continue;
                     if (activeNpC.type is not NPCID.EaterofWorldsBody
                         and not NPCID.EaterofWorldsHead
@@ -55,15 +51,12 @@ public class BossKillListener : GlobalNPC
         base.OnKill(npc);
     }
 
-    private static void HandleBossKill(NPC npc, string bossKey)
-    {
-        foreach (var player in Main.ActivePlayers)
-        {
-            var modPlayer = player.GetModPlayer<YhtPlayer>();
+    private static void HandleBossKill(NPC npc, string bossKey) {
+        foreach (Player player in Main.ActivePlayers) {
+            YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
             if (!npc.playerInteraction[player.whoAmI]) continue;
 
-            if (modPlayer.SummonerAmbition && modPlayer.SummonerAmbitions.Add(bossKey))
-            {
+            if (modPlayer.SummonerAmbition && modPlayer.SummonerAmbitions.Add(bossKey)) {
                 ChatHelper.SendChatMessageToClient(
                     NetworkText.FromLiteral("Your Summoner Ambition's potential grows stronger!"),
                     Color.MediumPurple,

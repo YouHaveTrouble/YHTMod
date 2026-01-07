@@ -5,6 +5,4 @@
     <AssemblyName>YHTMod</AssemblyName>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <ItemGroup>
-  </ItemGroup>
 </Project>
