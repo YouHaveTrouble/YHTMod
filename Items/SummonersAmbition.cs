@@ -90,8 +90,7 @@ public class SummonersAmbition : ModItem {
         return modPlayer.SummonerAmbitions.Contains("king_slime")
                && modPlayer.SummonerAmbitions.Contains("eye_of_cthulhu")
                && modPlayer.SummonerAmbitions.Contains("deerclops")
-               && modPlayer.SummonerAmbitions.Contains("eater_of_worlds")
-               && modPlayer.SummonerAmbitions.Contains("brain_of_cthulhu")
+               && (modPlayer.SummonerAmbitions.Contains("eater_of_worlds") || modPlayer.SummonerAmbitions.Contains("brain_of_cthulhu"))
                && modPlayer.SummonerAmbitions.Contains("queen_bee")
                && modPlayer.SummonerAmbitions.Contains("skeletron")
                && modPlayer.SummonerAmbitions.Contains("wall_of_flesh");
