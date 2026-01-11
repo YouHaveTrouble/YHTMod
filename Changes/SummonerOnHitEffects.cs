@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using YHTMod.Buffs;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace YHTMod.Changes;
@@ -40,9 +41,15 @@ public class SummonerOnHitEffects : GlobalProjectile {
         }
 
         // Whips
-        if (projectile.WhipSettings.Segments > 0) {
+        if (ProjectileID.Sets.IsAWhip[projectile.type]) {
             if (modPlayer.SummonerAmbitions.Contains("eye_of_cthulhu")) {
                 projectile.damage = (int)(projectile.damage * 1.1);
+            }
+
+            if (ModLoader.HasMod("CalamityMod")) {
+                if (modPlayer.SummonerAmbitions.Contains("crabulon")) {
+                    target.AddBuff(ModContent.BuffType<ShroomGlowDebuff>(), 5 * 60);
+                }
             }
         }
 

@@ -6,17 +6,26 @@ Recipes: {
 Buffs: {
 	ToclafaneMinionBuff: {
 		DisplayName: Summon Toclafane
-		Description: It came from a parallel world to fight for its Master.
+		Description: It came from a parallel world to fight for its Master
 	}
 
 	SummonerAmbitionBuff: {
 		DisplayName: Summoner's Ambition
 		Description:
 			'''
-			Your power grows with your ambition.
+			Your power grows with your ambition
 
 			Essences absorbed: {0}
 			'''
+	}
+
+	ShroomGlowDebuff: {
+		DisplayName: Shroom Glow
+		Description: 
+		    '''
+		    You are emitting a faint glow...
+		    And smell like mushrooms.
+		    '''
 	}
 }
 
@@ -74,7 +83,9 @@ Items: {
 			{$CommonItemTooltip.IncreasesMaxMinionsBy@0}
 			'''
 		KingSlime: "[i:560] 20% increased whip size"
+		DesertScourge: "{0} Increases maximum life by 5"
 		EyeOfCthulhu: "[i:43] Increases whip damage by 10%"
+		Crabulon: "{0} Enemies struck by whips glow slightly"
 		EaterOfWorlds: "[i:70] Summon damage penetrates 5 armor"
 		BrainOfCthulhu: "[i:1331] 5% increased minion damage"
 		QueenBee: "[i:1133] Minion hits can inflict poison"

@@ -33,6 +33,10 @@ public class YhtPlayer : ModPlayer {
                 Player.whipRangeMultiplier += 0.2f;
             }
 
+            if (ModLoader.HasMod("CalamityMod") && SummonerAmbitions.Contains("desert_scourge")) {
+                Player.statLifeMax2 += 5;
+            }
+
             if (SummonerAmbitions.Contains("eater_of_worlds")) {
                 Player.GetArmorPenetration(DamageClass.Summon) += 5;
             }

@@ -39,10 +39,22 @@ public class SummonersAmbition : ModItem {
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionKingSlime",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.KingSlime")));
         }
+        
+        if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("desert_scourge")) {
+            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreDesertScourge>();
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionDesertScourge",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.DesertScourge", "[i:" + id + "]")));
+        }
 
         if (player.SummonerAmbitions.Contains("eye_of_cthulhu")) {
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionEyeOfCthulhu",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.EyeOfCthulhu")));
+        }
+        
+        if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("crabulon")) {
+            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreCrabulon>();
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionCrabulon",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.Crabulon", "[i:" + id + "]")));
         }
 
         if (player.SummonerAmbitions.Contains("deerclops")) {

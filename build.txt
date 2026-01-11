@@ -1,3 +1,4 @@
 displayName = YHT Mod
 author = YouHaveTrouble
 version = 1.2.1
+weakReferences = CalamityMod@2.0.0.0
