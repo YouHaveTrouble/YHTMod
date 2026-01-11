@@ -9,6 +9,8 @@ public class SummonerOnHitEffects : GlobalProjectile {
     public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) {
         Player player = Main.player[projectile.owner];
         YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
+        
+        // Player's own minions
         if (projectile.minion && Main.myPlayer == projectile.owner) {
             if (modPlayer.SummonerAmbition) {
                 if (
@@ -31,17 +33,17 @@ public class SummonerOnHitEffects : GlobalProjectile {
                     );
                 }
 
-                if (
-                    modPlayer.SummonerAmbitions.Contains("queen_bee")
-                    && Main.rand.NextBool(4)
-                ) {
+                if (modPlayer.SummonerAmbitions.Contains("queen_bee") && Main.rand.NextBool(4)) {
                     target.AddBuff(BuffID.Poisoned, 5 * 60);
                 }
             }
         }
 
+        // Whips
         if (projectile.WhipSettings.Segments > 0) {
-            projectile.damage = (int)(projectile.damage * 1.1);
+            if (modPlayer.SummonerAmbitions.Contains("eye_of_cthulhu")) {
+                projectile.damage = (int)(projectile.damage * 1.1);
+            }
         }
 
         base.OnHitNPC(projectile, target, hit, damageDone);
