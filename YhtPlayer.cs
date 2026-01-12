@@ -30,7 +30,12 @@ public class YhtPlayer : ModPlayer {
             Player.maxMinions += GetSummonersAmbitionMinionBonus();
 
             if (SummonerAmbitions.Contains("king_slime")) {
-                Player.whipRangeMultiplier += 0.2f;
+                if (ModLoader.HasMod("CalamityMod")) {
+                    Player.whipRangeMultiplier += 0.1f;
+                }
+                else {
+                    Player.whipRangeMultiplier += 0.2f;
+                }
             }
 
             if (ModLoader.HasMod("CalamityMod") && SummonerAmbitions.Contains("desert_scourge")) {
@@ -47,6 +52,9 @@ public class YhtPlayer : ModPlayer {
 
             if (SummonerAmbitions.Contains("skeletron")) {
                 Player.GetKnockback(DamageClass.Summon) += 0.1f;
+            }
+            if (ModLoader.HasMod("CalamityMod") && SummonerAmbitions.Contains("slime_god")) {
+                Player.whipRangeMultiplier += 0.1f;
             }
         }
     }

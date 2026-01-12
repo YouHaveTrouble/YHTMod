@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using CalamityMod.NPCs.Crabulon;
 using CalamityMod.NPCs.DesertScourge;
+using CalamityMod.NPCs.HiveMind;
+using CalamityMod.NPCs.Perforator;
+using CalamityMod.NPCs.SlimeGod;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Chat;
@@ -29,9 +32,12 @@ public class BossKillListener : GlobalNPC {
         if (ModLoader.HasMod("CalamityMod")) {
             BossIds.Add(ModContent.NPCType<DesertScourgeHead>(), "desert_scourge");
             BossIds.Add(ModContent.NPCType<Crabulon>(), "crabulon");
+            BossIds.Add(ModContent.NPCType<PerforatorHive>(), "perforators");
+            BossIds.Add(ModContent.NPCType<HiveMind>(), "hive_mind");
+            BossIds.Add(ModContent.NPCType<SlimeGodCore>(), "slime_god");
         }
     }
-    
+
     public override void OnKill(NPC npc) {
         string id = BossIds.GetValueOrDefault(npc.type, null);
         switch (id) {

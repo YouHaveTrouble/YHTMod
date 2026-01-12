@@ -21,11 +21,11 @@ Buffs: {
 
 	ShroomGlowDebuff: {
 		DisplayName: Shroom Glow
-		Description: 
-		    '''
-		    You are emitting a faint glow...
-		    And smell like mushrooms.
-		    '''
+		Description:
+			'''
+			You are emitting a faint glow...
+			And smell like mushrooms.
+			'''
 	}
 }
 
@@ -82,7 +82,7 @@ Items: {
 			"For those who seek to lead."
 			{$CommonItemTooltip.IncreasesMaxMinionsBy@0}
 			'''
-		KingSlime: "[i:560] 20% increased whip size"
+		KingSlime: "[i:560] {0}% increased whip size"
 		DesertScourge: "{0} Increases maximum life by 5"
 		EyeOfCthulhu: "[i:43] Increases whip damage by 10%"
 		Crabulon: "{0} Enemies struck by whips glow slightly"
@@ -92,6 +92,7 @@ Items: {
 		Deerclops: "[i:5120] Minion hits can spawn shadow hands"
 		Skeletron: "[i:4801] Increases minion knockback"
 		WallOfFlesh: "[i:267] Increases max number of minions by 1"
+		SlimeGod: "{0} 10% increased whip size"
 	}
 }
 

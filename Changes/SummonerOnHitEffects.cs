@@ -20,7 +20,7 @@ public class SummonerOnHitEffects : GlobalProjectile {
                     && Main.rand.NextBool(10)
                 ) {
                     modPlayer.SummonerAmbitionDeerclopsCooldown = 5 * 60;
-                    Vector2 direction = new Vector2(Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f));
+                    Vector2 direction = new(Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f));
                     direction.Normalize();
                     direction *= Main.rand.NextFloat(4f, 8f);
                     Projectile.NewProjectile(
@@ -41,7 +41,7 @@ public class SummonerOnHitEffects : GlobalProjectile {
         }
 
         // Whips
-        if (ProjectileID.Sets.IsAWhip[projectile.type]) {
+        if (modPlayer.SummonerAmbition && ProjectileID.Sets.IsAWhip[projectile.type]) {
             if (modPlayer.SummonerAmbitions.Contains("eye_of_cthulhu")) {
                 projectile.damage = (int)(projectile.damage * 1.1);
             }

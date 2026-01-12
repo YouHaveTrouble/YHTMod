@@ -36,10 +36,14 @@ public class SummonersAmbition : ModItem {
                 player.GetSummonersAmbitionMinionBonus())));
 
         if (player.SummonerAmbitions.Contains("king_slime")) {
+            int bonus = 20;
+            if (ModLoader.HasMod("CalamityMod")) {
+                bonus = 10;
+            }
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionKingSlime",
-                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.KingSlime")));
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.KingSlime", bonus)));
         }
-        
+
         if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("desert_scourge")) {
             int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreDesertScourge>();
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionDesertScourge",
@@ -50,7 +54,7 @@ public class SummonersAmbition : ModItem {
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionEyeOfCthulhu",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.EyeOfCthulhu")));
         }
-        
+
         if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("crabulon")) {
             int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreCrabulon>();
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionCrabulon",
@@ -86,6 +90,12 @@ public class SummonersAmbition : ModItem {
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionWallOfFlesh",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.WallOfFlesh")));
         }
+
+        if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("slime_god")) {
+            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreSlimeGod>();
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionSlimeGod",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.SlimeGod", "[i:" + id + "]")));
+        }
     }
 
     public override void AddRecipes() {
@@ -102,7 +112,8 @@ public class SummonersAmbition : ModItem {
         return modPlayer.SummonerAmbitions.Contains("king_slime")
                && modPlayer.SummonerAmbitions.Contains("eye_of_cthulhu")
                && modPlayer.SummonerAmbitions.Contains("deerclops")
-               && (modPlayer.SummonerAmbitions.Contains("eater_of_worlds") || modPlayer.SummonerAmbitions.Contains("brain_of_cthulhu"))
+               && (modPlayer.SummonerAmbitions.Contains("eater_of_worlds") ||
+                   modPlayer.SummonerAmbitions.Contains("brain_of_cthulhu"))
                && modPlayer.SummonerAmbitions.Contains("queen_bee")
                && modPlayer.SummonerAmbitions.Contains("skeletron")
                && modPlayer.SummonerAmbitions.Contains("wall_of_flesh");
