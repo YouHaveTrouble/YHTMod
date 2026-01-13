@@ -88,6 +88,8 @@ Items: {
 		Crabulon: "{0} Enemies struck by whips glow slightly"
 		EaterOfWorlds: "[i:70] Summon damage penetrates 5 armor"
 		BrainOfCthulhu: "[i:1331] 5% increased minion damage"
+		HiveMind: "{0} Occasionally spawns Shade Nimbus to rain on enemies"
+		Perforators: "{0} Occasionally spawns ichor blobs on minion hits"
 		QueenBee: "[i:1133] Minion hits can inflict poison"
 		Deerclops: "[i:5120] Minion hits can spawn shadow hands"
 		Skeletron: "[i:4801] Increases minion knockback"
