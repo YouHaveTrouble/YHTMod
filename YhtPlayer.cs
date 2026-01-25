@@ -11,6 +11,7 @@ public class YhtPlayer : ModPlayer {
     public int KatanaTeleportCooldown = 0;
     public int SummonerAmbitionDeerclopsCooldown = 0;
     public int SummonerAmbitionPerforatorsCooldown = 0;
+    public int SummonerAmbitionHiveMindCooldown = 0;
 
 
     public bool SummonerAmbition = false;
@@ -24,6 +25,7 @@ public class YhtPlayer : ModPlayer {
         KatanaTeleportCooldown = Math.Max(KatanaTeleportCooldown - 1, 0);
         SummonerAmbitionDeerclopsCooldown = Math.Max(SummonerAmbitionDeerclopsCooldown - 1, 0);
         SummonerAmbitionPerforatorsCooldown = Math.Max(SummonerAmbitionPerforatorsCooldown - 1, 0);
+        SummonerAmbitionHiveMindCooldown = Math.Max(SummonerAmbitionHiveMindCooldown - 1, 0);
     }
 
     public override void PostUpdateEquips() {

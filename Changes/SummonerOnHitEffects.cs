@@ -17,6 +17,7 @@ public class SummonerOnHitEffects : GlobalProjectile {
                 HandleDeerclopsEffect(modPlayer, target, projectile);
                 HandleQueenBeeEffect(modPlayer, target);
                 HandlePerforatorsEffect(modPlayer, target, projectile);
+                HandleHiveMindEffect(modPlayer, target, projectile);
             }
         }
 
@@ -77,6 +78,28 @@ public class SummonerOnHitEffects : GlobalProjectile {
             modPlayer.Player.GetSource_OnHit(target),
             target.Center,
             direction,
+            projectileType,
+            (int) (projectile.damage * 0.75f),
+            0f,
+            projectile.owner
+        );
+        Projectile blob = Main.projectile[projectileId];
+        blob.friendly = true;
+        blob.hostile = false;
+        blob.DamageType = DamageClass.Summon;
+    }
+    
+    private static void HandleHiveMindEffect(YhtPlayer modPlayer, NPC target, Projectile projectile) {
+        if (!ModLoader.HasMod("CalamityMod")) return;
+        if (!modPlayer.SummonerAmbitions.Contains("hive_mind")) return;
+        if (modPlayer.SummonerAmbitionHiveMindCooldown != 0) return;
+        if (!Main.rand.NextBool(10)) return;
+        modPlayer.SummonerAmbitionHiveMindCooldown = 3 * 60;
+        int projectileType = ModContent.ProjectileType<CalamityMod.Projectiles.Boss.ShadeNimbusHostile>();
+        int projectileId = Projectile.NewProjectile(
+            modPlayer.Player.GetSource_OnHit(target),
+            target.Center,
+            new Vector2(0, 1f),
             projectileType,
             (int) (projectile.damage * 0.75f),
             0f,
