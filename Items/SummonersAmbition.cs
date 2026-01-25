@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -76,6 +77,18 @@ public class SummonersAmbition : ModItem {
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.BrainOfCthulhu")));
         }
 
+        if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("perforators")) {
+            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LorePerforators>();
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionPerforators",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.Perforators", "[i:" + id + "]")));
+        }
+
+        if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("hive_mind")) {
+            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreHiveMind>();
+            tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionHiveMind",
+                Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.HiveMind", "[i:" + id + "]")));
+        }
+
         if (player.SummonerAmbitions.Contains("queen_bee")) {
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionQueenBee",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.QueenBee")));
@@ -109,13 +122,26 @@ public class SummonersAmbition : ModItem {
 
     public static bool IsPreHardmodeRealized(Player player) {
         YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
-        return modPlayer.SummonerAmbitions.Contains("king_slime")
-               && modPlayer.SummonerAmbitions.Contains("eye_of_cthulhu")
-               && modPlayer.SummonerAmbitions.Contains("deerclops")
-               && (modPlayer.SummonerAmbitions.Contains("eater_of_worlds") ||
-                   modPlayer.SummonerAmbitions.Contains("brain_of_cthulhu"))
-               && modPlayer.SummonerAmbitions.Contains("queen_bee")
-               && modPlayer.SummonerAmbitions.Contains("skeletron")
-               && modPlayer.SummonerAmbitions.Contains("wall_of_flesh");
+        
+        HashSet<string> bossesToCheck = [
+            "king_slime",
+            "eye_of_cthulhu",
+            "deerclops",
+            "eater_of_worlds",
+            "brain_of_cthulhu",
+            "queen_bee",
+            "skeletron",
+            "wall_of_flesh"
+        ];
+
+        if (ModLoader.HasMod("CalamityMod")) {
+            bossesToCheck.Add("desert_scourge");
+            bossesToCheck.Add("crabulon");
+            bossesToCheck.Add("perforators");
+            bossesToCheck.Add("hive_mind");
+            bossesToCheck.Add("slime_god");
+        }
+
+        return bossesToCheck.All(boss => modPlayer.SummonerAmbitions.Contains(boss));
     }
 }
