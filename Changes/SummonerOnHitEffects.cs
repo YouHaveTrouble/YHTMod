@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using YHTMod.Buffs;
@@ -7,6 +8,22 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace YHTMod.Changes;
 
 public class SummonerOnHitEffects : GlobalProjectile {
+    public override void OnSpawn(Projectile projectile, IEntitySource source) {
+        if (ModLoader.HasMod("CalamityMod") && projectile.type == ModContent.ProjectileType<CalamityMod.Projectiles.Boss.ShaderainHostile>()) {
+            if (source is EntitySource_Parent { Entity: Projectile parentProj }) {
+                int shadeType = ModContent.ProjectileType<CalamityMod.Projectiles.Boss.ShadeNimbusHostile>();
+                if (parentProj.type == shadeType && parentProj.friendly && !parentProj.hostile) {
+                    projectile.friendly = true;
+                    projectile.hostile = false;
+                    projectile.DamageType = DamageClass.Summon;
+                    projectile.damage = parentProj.damage;
+                }
+            }
+        }
+
+        base.OnSpawn(projectile, source);
+    }
+
     public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) {
         Player player = Main.player[projectile.owner];
         YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
@@ -69,7 +86,7 @@ public class SummonerOnHitEffects : GlobalProjectile {
         if (!modPlayer.SummonerAmbitions.Contains("perforators")) return;
         if (modPlayer.SummonerAmbitionPerforatorsCooldown != 0) return;
         if (!Main.rand.NextBool(10)) return;
-        modPlayer.SummonerAmbitionPerforatorsCooldown = 3 * 60;
+        modPlayer.SummonerAmbitionPerforatorsCooldown = 20 * 60;
         Vector2 direction = new(Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f));
         direction.Normalize();
         direction *= Main.rand.NextFloat(4f, 5f);
@@ -99,7 +116,7 @@ public class SummonerOnHitEffects : GlobalProjectile {
         int projectileId = Projectile.NewProjectile(
             modPlayer.Player.GetSource_OnHit(target),
             target.Center,
-            new Vector2(0, 1f),
+            new Vector2(0, -0.25f),
             projectileType,
             (int) (projectile.damage * 0.75f),
             0f,

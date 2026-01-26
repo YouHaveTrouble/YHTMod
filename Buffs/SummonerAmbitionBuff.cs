@@ -11,9 +11,8 @@ public class SummonerAmbitionBuff : ModBuff {
     }
 
     public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare) {
-        YhtPlayer modPlayer = Main.LocalPlayer.TryGetModPlayer<YhtPlayer>(out var mp) ? mp : null;
+        YhtPlayer modPlayer = Main.LocalPlayer.TryGetModPlayer(out YhtPlayer mp) ? mp : null;
         if (modPlayer == null) return;
-
         tip = Language.GetTextValue("Mods.YHTMod.Buffs.SummonerAmbitionBuff.Description",
             modPlayer.SummonerAmbitions.Count);
     }
