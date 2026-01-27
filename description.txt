@@ -6,4 +6,4 @@ Wiki: https://github.com/YouHaveTrouble/YHTMod/wiki
 Source: https://github.com/YouHaveTrouble/YHTMod
 
 Code: YouHaveTrouble
-Sprites: YouHaveTrouble, Patrxon
+Sprites: YouHaveTrouble, Patrxon, SlyFox

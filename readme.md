@@ -8,4 +8,4 @@ Discussion discord: [![Discord](https://img.shields.io/discord/82156510210857370
 
 Code: YouHaveTrouble
 
-Sprites: YouHaveTrouble, Patrxon
+Sprites: YouHaveTrouble, Patrxon, SlyFox
