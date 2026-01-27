@@ -1,9 +1,4 @@
 using System.Collections.Generic;
-using CalamityMod.NPCs.Crabulon;
-using CalamityMod.NPCs.DesertScourge;
-using CalamityMod.NPCs.HiveMind;
-using CalamityMod.NPCs.Perforator;
-using CalamityMod.NPCs.SlimeGod;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Chat;
@@ -13,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace YHTMod.Changes;
 
+[ExtendsFromMod("CalamityMod")]
 public class BossKillListener : GlobalNPC {
 
     private static readonly Dictionary<int, string> BossIds = new();
@@ -29,12 +25,22 @@ public class BossKillListener : GlobalNPC {
         BossIds.Add(NPCID.SkeletronHead, "skeletron");
         BossIds.Add(NPCID.WallofFlesh, "wall_of_flesh");
         
-        if (ModLoader.HasMod("CalamityMod")) {
-            BossIds.Add(ModContent.NPCType<DesertScourgeHead>(), "desert_scourge");
-            BossIds.Add(ModContent.NPCType<Crabulon>(), "crabulon");
-            BossIds.Add(ModContent.NPCType<PerforatorHive>(), "perforators");
-            BossIds.Add(ModContent.NPCType<HiveMind>(), "hive_mind");
-            BossIds.Add(ModContent.NPCType<SlimeGodCore>(), "slime_god");
+        Mod calamity = CalamityHelper.GetCalamityMod();
+        if (calamity == null) return;
+        if (calamity.TryFind("DesertScourgeHead", out ModNPC desertScourgeHead)) {
+            BossIds.Add(desertScourgeHead.Type, "desert_scourge_head");
+        }
+        if (calamity.TryFind("Crabulon", out ModNPC crabulon)) {
+            BossIds.Add(crabulon.Type, "crabulon");
+        }
+        if (calamity.TryFind("PerforatorHive", out ModNPC perforatorHive)) {
+            BossIds.Add(perforatorHive.Type, "perforators");
+        }
+        if (calamity.TryFind("HiveMind", out ModNPC hiveMind)) {
+            BossIds.Add(hiveMind.Type, "hive_mind");
+        }
+        if (calamity.TryFind("SlimeGodCore", out ModNPC slimeGodCore)) {
+            BossIds.Add(slimeGodCore.Type, "slime_god");
         }
     }
 

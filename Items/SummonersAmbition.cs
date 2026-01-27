@@ -5,6 +5,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using YHTMod.Changes;
 
 namespace YHTMod.Items;
 
@@ -47,7 +48,7 @@ public class SummonersAmbition : ModItem {
         }
 
         if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("desert_scourge")) {
-            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreDesertScourge>();
+            int id = CalamityHelper.GetBossIconId("desert_scourge");
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionDesertScourge",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.DesertScourge", "[i:" + id + "]")));
         }
@@ -58,7 +59,7 @@ public class SummonersAmbition : ModItem {
         }
 
         if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("crabulon")) {
-            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreCrabulon>();
+            int id = CalamityHelper.GetBossIconId("crabulon");
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionCrabulon",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.Crabulon", "[i:" + id + "]")));
         }
@@ -79,13 +80,13 @@ public class SummonersAmbition : ModItem {
         }
 
         if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("perforators")) {
-            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LorePerforators>();
+            int id = CalamityHelper.GetBossIconId("perforators");
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionPerforators",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.Perforators", "[i:" + id + "]")));
         }
 
         if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("hive_mind")) {
-            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreHiveMind>();
+            int id = CalamityHelper.GetBossIconId("hive_mind");
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionHiveMind",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.HiveMind", "[i:" + id + "]")));
         }
@@ -101,7 +102,7 @@ public class SummonersAmbition : ModItem {
         }
 
         if (ModLoader.HasMod("CalamityMod") && player.SummonerAmbitions.Contains("slime_god")) {
-            int id = ModContent.ItemType<CalamityMod.Items.LoreItems.LoreSlimeGod>();
+            int id = CalamityHelper.GetBossIconId("slime_god");
             tooltips.Add(new TooltipLine(Mod, "SummonerAmbitionSlimeGod",
                 Language.GetTextValue("Mods.YHTMod.Items.SummonersAmbition.SlimeGod", "[i:" + id + "]")));
         }
@@ -152,8 +153,6 @@ public class SummonersAmbition : ModItem {
                 return false;
             }
         }
-        
-        
 
         return bossesToCheck.All(boss => modPlayer.SummonerAmbitions.Contains(boss));
     }

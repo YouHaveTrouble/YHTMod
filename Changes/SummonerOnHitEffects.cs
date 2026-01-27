@@ -7,19 +7,38 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace YHTMod.Changes;
 
+[ExtendsFromMod("CalamityMod")]
 public class SummonerOnHitEffects : GlobalProjectile {
+
     public override void OnSpawn(Projectile projectile, IEntitySource source) {
-        if (ModLoader.HasMod("CalamityMod") && projectile.type == ModContent.ProjectileType<CalamityMod.Projectiles.Boss.ShaderainHostile>()) {
-            if (source is EntitySource_Parent { Entity: Projectile parentProj }) {
-                int shadeType = ModContent.ProjectileType<CalamityMod.Projectiles.Boss.ShadeNimbusHostile>();
-                if (parentProj.type == shadeType && parentProj.friendly && !parentProj.hostile) {
-                    projectile.friendly = true;
-                    projectile.hostile = false;
-                    projectile.DamageType = DamageClass.Summon;
-                    projectile.damage = parentProj.damage;
-                }
-            }
+        Mod calamity = CalamityHelper.GetCalamityMod();
+        
+        if (calamity is null
+            || source is not EntitySource_Parent { Entity: Projectile { friendly: true } parentProj }
+            || parentProj.hostile
+        ) {
+            base.OnSpawn(projectile, source);
+            return;
         }
+
+        // Get Calamity projectile types safely
+        if (!calamity.TryFind("ShadeNimbusHostile", out ModProjectile shadeNimbus) 
+            || parentProj.type != shadeNimbus.Type
+        ) {
+            base.OnSpawn(projectile, source);
+            return;
+        }
+
+        if (!calamity.TryFind("ShaderainHostile", out ModProjectile shaderainHostile) || 
+            projectile.type != shaderainHostile.Type) {
+            base.OnSpawn(projectile, source);
+            return;
+        }
+
+        projectile.friendly = true;
+        projectile.hostile = false;
+        projectile.DamageType = DamageClass.Summon;
+        projectile.damage = parentProj.damage;
 
         base.OnSpawn(projectile, source);
     }
