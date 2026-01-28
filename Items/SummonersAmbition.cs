@@ -25,6 +25,11 @@ public class SummonersAmbition : ModItem {
         Item.noUseGraphic = true;
         ItemID.Sets.ShimmerTransformToItem[Type] = 0;
     }
+    
+    public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player) {
+        YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
+        return !modPlayer.hasAmbitionEquipped() && base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
+    }
 
     public override void UpdateAccessory(Player player, bool hideVisual) {
         YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();

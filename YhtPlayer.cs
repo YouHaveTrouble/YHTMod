@@ -15,11 +15,13 @@ public class YhtPlayer : ModPlayer {
 
 
     public bool SummonerAmbition = false;
+    public bool WarriorAmbition = false;
 
     /**
      * Set of boss and event ids for unlocking perks from Summoner's Ambition accessory
      */
     public HashSet<string> SummonerAmbitions = [];
+    public HashSet<string> WarriorAmbitions = [];
 
     public override void PreUpdate() {
         KatanaTeleportCooldown = Math.Max(KatanaTeleportCooldown - 1, 0);
@@ -61,29 +63,55 @@ public class YhtPlayer : ModPlayer {
                 Player.whipRangeMultiplier += 0.1f;
             }
         }
+        if (WarriorAmbition) {
+            Player.AddBuff(ModContent.BuffType<WarriorAmbitionBuff>(), 1);
+        }
+    }
+
+    public bool hasAmbitionEquipped() {
+        if (SummonerAmbition) return true;
+        if (WarriorAmbition) return true;
+        return false;
     }
 
     public override void ResetEffects() {
         ArcaneMissile = 0;
         SummonerAmbition = false;
+        WarriorAmbition = false;
 
         base.ResetEffects();
     }
 
     public override void SaveData(TagCompound tag) {
         tag["summonerAmbitions"] = new List<string>(SummonerAmbitions);
+        tag["warriorAmbitions"] = new List<string>(WarriorAmbitions);
     }
 
     public override void LoadData(TagCompound tag) {
-        if (!tag.ContainsKey("summonerAmbitions")) return;
-        IList<string> list = tag.GetList<string>("summonerAmbitions");
-        SummonerAmbitions = new HashSet<string>(list);
+        if (tag.ContainsKey("summonerAmbitions")) {
+            IList<string> list = tag.GetList<string>("summonerAmbitions");
+            SummonerAmbitions = new HashSet<string>(list);
+        }
+        if (tag.ContainsKey("warriorAmbitions")) {
+            IList<string> warriorList = tag.GetList<string>("warriorAmbitions");
+            WarriorAmbitions = new HashSet<string>(warriorList);
+        }
     }
 
     public int GetSummonersAmbitionMinionBonus() {
         int amount = 1;
         if (SummonerAmbitions.Contains("wall_of_flesh")) {
             amount += 1;
+        }
+
+        return amount;
+    }
+
+    public int GetWarriorsAmbitionDefenseBonus() {
+        int amount = 2;
+        
+        if (WarriorAmbitions.Contains("wall_of_flesh")) {
+            amount += 5;
         }
 
         return amount;

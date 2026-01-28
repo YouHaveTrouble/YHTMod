@@ -83,6 +83,12 @@ public class BossKillListener : GlobalNPC {
                     Color.MediumPurple,
                     player.whoAmI
                 );
+            } else if (modPlayer.WarriorAmbition && modPlayer.WarriorAmbitions.Add(bossKey)) {
+                ChatHelper.SendChatMessageToClient(
+                    NetworkText.FromLiteral("Your Warrior Ambition's potential grows stronger!"),
+                    Color.OrangeRed,
+                    player.whoAmI
+                );
             }
         }
     }

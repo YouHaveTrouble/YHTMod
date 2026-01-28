@@ -27,6 +27,16 @@ Buffs: {
 			And smell like mushrooms.
 			'''
 	}
+
+	WarriorAmbitionBuff: {
+	    DisplayName: Warrior's Ambition
+		Description:
+        			'''
+        			Your power grows with your ambition
+        
+        			Essences absorbed: {0}
+        			'''
+	}
 }
 
 Items: {
@@ -96,6 +106,30 @@ Items: {
 		WallOfFlesh: "[i:267] Increases max number of minions by 1"
 		SlimeGod: "{0} 10% increased whip size"
 		PreHardmodeRealized: Fully realized. Seek greater heights.
+	}
+
+	WarriorsAmbition: {
+	    DisplayName: Warriors Ambition
+	    Tooltip:
+        	'''
+        	Grants Warrior's Ambition.
+        	"For those who wish to face enemy head on."
+        	{0} defense
+        	'''
+        KingSlime: "[i:560] {0}% increased true melee weapon size"
+        DesertScourge: "{0} Increases maximum life by 10"
+        EyeOfCthulhu: "[i:43] Increases melee damage by 10%"
+        Crabulon: "{0} Enemies struck by whips glow slightly"
+        EaterOfWorlds: "[i:70] Melee damage penetrates 5 armor"
+        BrainOfCthulhu: "[i:1331] 5% increased true melee damage"
+        HiveMind: "{0} defense"
+        Perforators: "{0} defense"
+        QueenBee: "[i:1133] Damaging debuffs expire 5% faster on you"
+        Deerclops: "[i:5120] Melee hits can throw debris"
+        Skeletron: "[i:4801] Increases melee knockback"
+        WallOfFlesh: "[i:267] +5 defense"
+        SlimeGod: "{0} 2.5% increased true melee weapon size"
+        PreHardmodeRealized: Fully realized. Seek greater heights.
 	}
 }
 
