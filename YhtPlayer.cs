@@ -65,6 +65,12 @@ public class YhtPlayer : ModPlayer {
         }
         if (WarriorAmbition) {
             Player.AddBuff(ModContent.BuffType<WarriorAmbitionBuff>(), 1);
+            Player.statDefense += GetWarriorsAmbitionDefenseBonus();
+            
+            if (ModLoader.HasMod("CalamityMod") && SummonerAmbitions.Contains("desert_scourge")) {
+                Player.statLifeMax2 += 10;
+            }
+
         }
     }
 
@@ -109,11 +115,38 @@ public class YhtPlayer : ModPlayer {
 
     public int GetWarriorsAmbitionDefenseBonus() {
         int amount = 2;
+
+        if (ModLoader.HasMod("CalamityMod") && SummonerAmbitions.Contains("perforators")) {
+            amount += 2;
+        }
+
+        if (ModLoader.HasMod("CalamityMod") && SummonerAmbitions.Contains("hive_mind")) {
+            amount += 2;
+        }
         
         if (WarriorAmbitions.Contains("wall_of_flesh")) {
             amount += 5;
         }
 
         return amount;
+    }
+
+    public float GetWarriorsAmbitionMeleeSizeBonus() {
+        float scale = 1f;
+        
+        if (WarriorAmbitions.Contains("king_slime")) {
+            if (ModLoader.HasMod("CalamityMod")) {
+                scale += 0.025f;
+            }
+            else {
+                scale += 0.05f;
+            }
+        }
+
+        if (ModLoader.HasMod("CalamityMod") && WarriorAmbitions.Contains("slime_god")) {
+            scale += 0.025f;
+        }
+        
+        return scale;
     }
 }
