@@ -33,7 +33,7 @@ public class WarriorsAmbition : ModItem {
 
     public override void UpdateAccessory(Player player, bool hideVisual) {
         YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
-        modPlayer.SummonerAmbition = true;
+        modPlayer.WarriorAmbition = true;
     }
 
     public override void ModifyTooltips(List<TooltipLine> tooltips) {
@@ -41,7 +41,7 @@ public class WarriorsAmbition : ModItem {
         tooltips.Add(new TooltipLine(Mod, "WarriorsAmbition",
             Language.GetTextValue("Mods.YHTMod.Items.WarriorAmbition.Tooltip")));
 
-        if (player.SummonerAmbitions.Contains("king_slime")) {
+        if (player.WarriorAmbitions.Contains("king_slime")) {
             float bonus = 5f;
             if (ModLoader.HasMod("CalamityMod")) {
                 bonus = 2.5f;
