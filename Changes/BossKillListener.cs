@@ -28,7 +28,7 @@ public class BossKillListener : GlobalNPC {
         Mod calamity = CalamityHelper.GetCalamityMod();
         if (calamity == null) return;
         if (calamity.TryFind("DesertScourgeHead", out ModNPC desertScourgeHead)) {
-            BossIds.Add(desertScourgeHead.Type, "desert_scourge_head");
+            BossIds.Add(desertScourgeHead.Type, "desert_scourge");
         }
         if (calamity.TryFind("Crabulon", out ModNPC crabulon)) {
             BossIds.Add(crabulon.Type, "crabulon");
