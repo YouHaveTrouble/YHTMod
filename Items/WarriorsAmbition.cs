@@ -27,8 +27,7 @@ public class WarriorsAmbition : ModItem {
     }
 
     public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player) {
-        YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
-        return !modPlayer.hasAmbitionEquipped() && base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
+        return !(YHTMod.GetAmbitionItems().Contains(incomingItem.type) && YHTMod.GetAmbitionItems().Contains(equippedItem.type));
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual) {
