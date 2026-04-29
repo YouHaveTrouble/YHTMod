@@ -28,6 +28,9 @@ public class SummonersAmbition : ModItem {
     
     public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player) {
         YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
+        if (!YHTMod.GetAmbitionItems().Contains(incomingItem.type)) {
+            return base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
+        }
         return !modPlayer.hasAmbitionEquipped() && base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
     }
 

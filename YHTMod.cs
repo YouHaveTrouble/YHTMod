@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Terraria.ModLoader;
+using YHTMod.Items;
 
 namespace YHTMod;
 
@@ -11,5 +13,12 @@ public class YHTMod : Mod {
 
     public static YHTMod GetInstance() {
         return _mod;
+    }
+
+    public static HashSet<int> GetAmbitionItems() {
+        return [
+            ModContent.ItemType<SummonersAmbition>(),
+            ModContent.ItemType<WarriorsAmbition>()
+        ];
     }
 }
