@@ -5,8 +5,6 @@ using Terraria.ModLoader;
 namespace YHTMod.Changes;
 
 public class WarriorItemEffects : GlobalItem {
-    
-    public override bool InstancePerEntity => true;
 
     public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox) {
         YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
@@ -29,10 +27,10 @@ public class WarriorItemEffects : GlobalItem {
                 hitbox.Height = newH;
             }
         }
-        
+
         base.UseItemHitbox(item, player, ref hitbox, ref noHitbox);
     }
-    
+
     public override void HoldItem(Item item, Player player) {
         YhtPlayer modPlayer = player.GetModPlayer<YhtPlayer>();
 
